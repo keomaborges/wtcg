@@ -1,0 +1,24 @@
+{
+    "name": "keoma/det_insp_code_test",
+    "description": "Reads a Wikipedia table and output a chart as image",
+    "type": "project",
+    "require": {
+        "php": "^7.4",
+        "ext-gd": "*",
+        "szymach/c-pchart": "^3.0",
+        "ext-readline": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*"
+    },
+    "authors": [
+        {
+            "name": "Keoma",
+            "email": "keomab@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WikiChartGenerator\\": "src/"
+        }
+    }
+}
