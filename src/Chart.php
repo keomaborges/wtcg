@@ -107,6 +107,10 @@ class Chart
         /* Write the chart legend */
         $image->drawLegend(580, 20, ["Style" => LEGEND_NOBORDER, "Mode" => LEGEND_HORIZONTAL]);
 
+        if (!file_exists('outputs')) {
+            mkdir('outputs', 0777, true);
+        }
+
         /* Render the picture (choose the best way) */
         $path = uniqid('outputs/chart_') . '.png';
         $image->autoOutput($path);
