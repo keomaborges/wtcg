@@ -32,13 +32,22 @@ class TableGenerator
 
         $dom->loadHTMLFile($this->url, LIBXML_NOWARNING | LIBXML_NOERROR);
 
+        $h1 = $dom->getElementsByTagName('h1');
+        if (sizeof($h1) > 0) {
+            $title = $h1->item(0)->textContent;
+        } else {
+            $title = sprintf('Unamed Table %s', uniqid());
+        }
+
         $dom->preserveWhiteSpace = false;
         $domTables = $dom->getElementsByTagName('table');
 
         foreach ($domTables as $domTable) {
-            $table = new Table();
+            $table = new Table($title);
             $table->loadData($domTable);
-            $this->tables[] = $table;
+            if ($table->isValid()) {
+                $this->tables[] = $table;
+            }
         }
 
         return $this->tables;

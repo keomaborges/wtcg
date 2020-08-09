@@ -19,21 +19,21 @@ try {
     $tables = $tableGenerator->generateTables();
 } catch (\Exception $exception) {
     echo $exception->getMessage();
+    exit();
 }
 
 echo "\n\n";
-echo sprintf('%u tables were identified. Now generating chart...', sizeof($tables));
+echo sprintf('%u valid tables were identified. Now generating chart...', sizeof($tables));
 
-/*$data = $table->getData();
-$chart = new Chart($data);
-
-try {
+foreach ($tables as $i => $table) {
+    $chart = new Chart($table);
     $path = $chart->generateChartAsPng();
-} catch (\Exception $exception) {
-    echo $exception->getMessage();
-}*/
+
+    echo "\n\n";
+    echo sprintf('Generated chart for table(s) %u at: %s', ($i + 1), $path);
+}
 
 echo "\n\n";
-//echo sprintf('Chart generated successfully at %s', $path);
-echo "\n\n";
+echo 'Processing finished. See you!';
+
 exit();
