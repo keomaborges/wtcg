@@ -6,7 +6,13 @@ use WikiChartGenerator\Exceptions\InvalidURLException;
 
 class TableGenerator
 {
+    /**
+     * @var string
+     */
     private string $url;
+    /**
+     * @var array
+     */
     private array $tables;
 
     /**
@@ -19,6 +25,12 @@ class TableGenerator
         $this->url = $url;
     }
 
+    /**
+     * Generate tables from the DOM.
+     *
+     * @return array
+     * @throws InvalidURLException
+     */
     public function generateTables(): array {
         if (!filter_var($this->url, FILTER_VALIDATE_URL)) {
             throw new InvalidURLException('Invalid URL.');
@@ -53,6 +65,9 @@ class TableGenerator
         return $this->tables;
     }
 
+    /**
+     * @return array
+     */
     public function getTables()
     {
         return $this->tables;

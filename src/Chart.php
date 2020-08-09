@@ -7,6 +7,9 @@ use CpChart\Image;
 
 class Chart
 {
+    /**
+     * @var Table
+     */
     private Table $table;
 
     /**
@@ -19,12 +22,25 @@ class Chart
         $this->table = $table;
     }
 
+    /**
+     * Generates the chart and returns its path
+     *
+     * @return string
+     * @throws \Exception
+     */
     public function generateChartAsPng(): string {
+        /*
+         * The library throws some exceptions because it is not fully compatible
+         * with PHP 7.4. But they can be ignored since the chart is generated.
+         */
         error_reporting(E_ERROR);
 
         /* Create and populate the Data object */
         $data = new Data();
 
+        /*
+         * Gets the data from the table
+         */
         $tableData = $this->table->getData();
         $tableHeader = $this->table->getHeader();
 

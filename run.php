@@ -3,15 +3,13 @@
 require_once 'vendor/autoload.php';
 
 use WikiChartGenerator\Chart;
-use WikiChartGenerator\Table;
 use WikiChartGenerator\TableGenerator;
 
-echo "\n\n";
-echo 'Welcome to the Wikipedia Table Chart Generator by Keoma';
+echo "\n";
+echo 'Welcome to the Wikipedia Table Chart Generator by Keoma.';
 echo "\n\n";
 echo 'Inform the Wikipedia table url: ';
-//$url = readline();
-$url = 'https://en.wikipedia.org/wiki/Women%27s_high_jump_world_record_progression';
+$url = readline();
 
 $tableGenerator = new TableGenerator($url);
 
@@ -23,17 +21,23 @@ try {
 }
 
 echo "\n\n";
-echo sprintf('%u valid tables were identified. Now generating chart...', sizeof($tables));
+echo sprintf('%u valid table(s) was(were) identified. Now generating chart(s)...', sizeof($tables));
+echo "\n";
 
 foreach ($tables as $i => $table) {
     $chart = new Chart($table);
-    $path = $chart->generateChartAsPng();
-
-    echo "\n\n";
-    echo sprintf('Generated chart for table(s) %u at: %s', ($i + 1), $path);
+    try {
+        $path = $chart->generateChartAsPng();
+        echo "\n";
+        echo sprintf('Successfully generated chart for table(s) "%s" at: %s', $table->getTitle(), $path);
+    } catch (Exception $exception) {
+        echo 'Error when generating chart.';
+        echo $exception->getMessage();
+    }
 }
 
 echo "\n\n";
 echo 'Processing finished. See you!';
+echo "\n\n";
 
 exit();
